@@ -1,5 +1,5 @@
 from django.db import models
-from devtracker.core.constants import PROJECT_STATUS_CHOICES
+from core.constants import PROJECT_STATUS_CHOICES
 
 
 # Create your models here.
@@ -17,3 +17,6 @@ class Project(models.Model):
     class Meta:
         db_table = "project"
         ordering = ["-created_at"]
+
+    # def __str__(self):
+    #     return self.name
