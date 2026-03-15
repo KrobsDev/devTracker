@@ -16,12 +16,18 @@
 - Added api test cases for both `projects` and `tasks`
 - Added frontend directory
 - Setup shadcn on the frontend
+- Added react router
+- Added sidebar component
+- Setup dashboard layout component
+- Setup sidebar component
+- Added entry point route to the router setup
 
 ### Changed
 - Updated the `ProjectAdmin` to better display the projects in the admin panel
 - Moved all choices to `constants.py`
 - Updated the choices for task status
 - Updated the  get_queryset method to return tasks by project
+- Renamed `DashboardLayout` to `AppLayout`
 
 ### Fixed
 - Resolved the constants import error
