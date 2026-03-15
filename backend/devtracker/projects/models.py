@@ -18,5 +18,5 @@ class Project(models.Model):
         db_table = "project"
         ordering = ["-created_at"]
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
