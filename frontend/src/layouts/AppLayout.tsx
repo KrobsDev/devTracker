@@ -6,7 +6,7 @@ export default function DashboardLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="p-4">
+      <main className="w-full p-4">
         <div className="w-full">
           <SidebarTrigger />
         </div>

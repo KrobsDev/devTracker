@@ -21,6 +21,8 @@
 - Setup dashboard layout component
 - Setup sidebar component
 - Added entry point route to the router setup
+- Added `ProjectCard` component
+- Finished the UI for the dashboard screen
 
 ### Changed
 - Updated the `ProjectAdmin` to better display the projects in the admin panel
