@@ -1,4 +1,4 @@
-PROJECT_STATUS_CHOICES = {
+PROJECT_STATUS_TYPES_CHOICES = {
     "NOT_STARTED": "Not Started",
     "PENDING": "Pending",
     "IN_PROGRESS": "In Progress",

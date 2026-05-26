@@ -1,5 +1,5 @@
 from django.db import models
-from core.constants import PROJECT_STATUS_CHOICES
+from core.constants import PROJECT_STATUS_TYPES_CHOICES
 
 
 # Create your models here.
@@ -10,7 +10,9 @@ class Project(models.Model):
 
     name = models.CharField(max_length=50, null=False, blank=False)
     description = models.TextField()
-    status = models.CharField(choices=PROJECT_STATUS_CHOICES, default="NOT_STARTED")
+    status = models.CharField(
+        choices=PROJECT_STATUS_TYPES_CHOICES, default="NOT_STARTED"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
