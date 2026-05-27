@@ -1,11 +1,11 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Edit2, Trash } from "lucide-react"
-import { Badge } from "./ui/badge"
+import { Badge } from "../../../components/ui/badge"
 import type { Project } from "@/features/projects/domain/entities/project"
-import type { ProjectStatus } from "@/types"
-import { cn } from "../lib/utils"
-import { Button } from "./ui/button"
-import { Progress } from "./ui/progress"
+import { cn, formatStatusLabel } from "../../../lib/utils"
+import { Button } from "../../../components/ui/button"
+import { Progress } from "../../../components/ui/progress"
+import type { ProjectStatus } from "@/schemas/project-schemas"
 
 const statusColorMap: Record<ProjectStatus, string> = {
   NOT_STARTED: "bg-gray-500",
@@ -19,13 +19,13 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Card className="relative w-full">
       <CardHeader className="gap-3">
-        <div className="flex justify-between">
+        <div className="flex items-end justify-between">
           <div className="flex flex-col gap-2">
-            <CardTitle className="text-xl">{project.name}</CardTitle>
             {/* tags (status, priority) */}
             <Badge className={cn(statusColorMap[project.status], "text-xs")}>
-              {project.status}
+              {formatStatusLabel(project.status)}
             </Badge>
+            <CardTitle className="text-xl">{project.name}</CardTitle>
           </div>
 
           <div className="flex items-center gap-2">
