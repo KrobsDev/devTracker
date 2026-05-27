@@ -28,7 +28,6 @@ export class APIClient {
   static async get<T>({
     path,
     config,
-    version,
   }: BaseRequestProps): Promise<AxiosResponse<T>> {
     return await axiosInstance.get<T>(path, config)
   }
@@ -43,12 +42,24 @@ export class APIClient {
     path,
     payload,
     config,
-    version,
   }: MutationRequestProps): Promise<AxiosResponse<T>> {
     return await axiosInstance.post<T>(path, payload, config)
   }
 
   static async put() {}
   static async patch() {}
-  static async delete() {}
+
+  /**
+   * This function is a static method that sends a DELETE request using Axios with the specified path
+   * and configuration.
+   * @param {BaseRequestProps}  - The `delete` function takes in an object with the following
+   * properties:
+   * @returns The `delete` method is returning a Promise that resolves to an AxiosResponse of type T.
+   */
+  static async delete<T>({
+    path,
+    config,
+  }: BaseRequestProps): Promise<AxiosResponse<T>> {
+    return await axiosInstance.delete(path, config)
+  }
 }

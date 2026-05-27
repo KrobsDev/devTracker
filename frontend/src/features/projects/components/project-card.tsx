@@ -1,11 +1,13 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Edit2, Trash } from "lucide-react"
-import { Badge } from "../../../components/ui/badge"
+import { Badge } from "@/components/ui/badge"
 import type { Project } from "@/features/projects/domain/entities/project"
-import { cn, formatStatusLabel } from "../../../lib/utils"
-import { Button } from "../../../components/ui/button"
-import { Progress } from "../../../components/ui/progress"
+import { cn, formatStatusLabel } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
 import type { ProjectStatus } from "@/schemas/project-schemas"
+import DeleteDialog from "../../../components/delete-dialog"
+import { useDeleteProject } from "../hooks/use-delete-project"
 
 const statusColorMap: Record<ProjectStatus, string> = {
   NOT_STARTED: "bg-gray-500",
@@ -16,6 +18,7 @@ const statusColorMap: Record<ProjectStatus, string> = {
 }
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const { mutate: deleteProject } = useDeleteProject()
   return (
     <Card className="relative w-full">
       <CardHeader className="gap-3">
@@ -32,9 +35,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             <Button variant={"outline"}>
               <Edit2 />
             </Button>
-            <Button variant={"outline"}>
-              <Trash />
-            </Button>
+            <DeleteDialog handleDelete={() => deleteProject(project.id)} />
           </div>
         </div>
       </CardHeader>

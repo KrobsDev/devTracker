@@ -27,7 +27,6 @@ import {
 import {
   createProjectSchema,
   PROJECT_STATUSES,
-  type CreateProjectPayload,
   type ProjectStatus,
 } from "@/schemas/project-schemas"
 import { formatStatusLabel } from "@/lib/utils"

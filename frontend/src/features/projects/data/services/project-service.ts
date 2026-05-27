@@ -17,3 +17,11 @@ export const createProject = async (payload: CreateProjectPayload) => {
 
   return response.data
 }
+
+export const deleteProject = async (projectId: number) => {
+  const response = await APIClient.delete({
+    path: `/projects/${projectId}/`,
+  })
+
+  return response.data
+}
