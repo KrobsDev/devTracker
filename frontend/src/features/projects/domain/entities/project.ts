@@ -1,19 +1,10 @@
-import type { ProjectStatus } from "@/types";
-
-
+import type { ProjectStatus } from "@/schemas/project-schemas"
 
 export interface Project {
-    id: number;
-    name: string;
-    description: string;
-    status: ProjectStatus;
-    created_at?: string;
-    updated_at?: string;
-}
-
-export interface ProjectResponse {
-    count: number;
-    next: string;
-    previous: string;
-    results: Project[];
+  id: number
+  name: string
+  description: string
+  status: ProjectStatus
+  created_at?: string
+  updated_at?: string
 }

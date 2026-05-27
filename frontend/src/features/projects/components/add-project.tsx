@@ -1,4 +1,3 @@
-import * as z from "zod"
 import { useForm } from "@tanstack/react-form"
 import {
   Sheet,
@@ -25,47 +24,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  createProjectSchema,
+  PROJECT_STATUSES,
+  type CreateProjectPayload,
+  type ProjectStatus,
+} from "@/schemas/project-schemas"
+import { formatStatusLabel } from "@/lib/utils"
+import { useCreateProject } from "@/features/projects/hooks/use-create-project"
 
 interface AddProjectSheetProps {
   open: boolean
   onOpenChange: (value: boolean) => void
 }
 
-const projectStatusEnum = [
-  "NOT_STARTED",
-  "PENDING",
-  "IN_PROGRESS",
-  "COMPLETED",
-  "CANCELLED",
-] as const
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(3, "Project name must be more than 3 characters")
-    .max(30, "Project name must not exceed 30 characters"),
-  description: z
-    .string()
-    .min(10, "Description must be at least 10 characters")
-    .max(200, "Description must be at most 200 characters"),
-  status: z.enum(projectStatusEnum),
-})
-
 export default function AddProject({
   open,
   onOpenChange,
 }: AddProjectSheetProps) {
+  const { mutate: createNewProject, isPending } = useCreateProject()
+
   const form = useForm({
     defaultValues: {
       name: "",
       description: "",
-      status: "NOT_STARTED",
+      status: "NOT_STARTED" as ProjectStatus,
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: createProjectSchema,
     },
-    onSubmit: async (value) => {
-      console.log(value)
+    onSubmit: async ({ value }) => {
+      createNewProject(value, {
+        onSuccess: () => {
+          form.reset()
+          onOpenChange(false)
+        },
+      })
     },
   })
 
@@ -154,17 +148,19 @@ export default function AddProject({
                     <Select
                       name={field.name}
                       value={field.state.value}
-                      onValueChange={field.handleChange}
+                      onValueChange={(value) =>
+                        field.handleChange(value as ProjectStatus)
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a status" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {projectStatusEnum.map((status) => {
+                          {PROJECT_STATUSES.map((status) => {
                             return (
                               <SelectItem key={status} value={status}>
-                                {status.replace("_", " ")}
+                                {formatStatusLabel(status)}
                               </SelectItem>
                             )
                           })}
@@ -179,7 +175,9 @@ export default function AddProject({
               }}
             />
           </FieldGroup>
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {isPending ? "Creating..." : "Add Project"}
+          </Button>
         </form>
       </SheetContent>
     </Sheet>
